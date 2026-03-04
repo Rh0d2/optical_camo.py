@@ -3,11 +3,14 @@ import numpy as np
 import time
 
 cap = cv2.VideoCapture(0)
+print("Preparing camera... please step aside from the background.")
 time.sleep(3)
 background = 0
 for i in range(30):
     ret, background = cap.read()
 background = np.flip(background, axis=1)
+
+print("Background captured! Holding a RED object will make it invisible.")
 
 while(cap.isOpened()):
     ret, img = cap.read()
