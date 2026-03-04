@@ -10,16 +10,19 @@ for i in range(30):
 
 while(cap.isOpened()):
     ret, img = cap.read()
-    if not ret:
-        break
+    if not ret: break
     
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    lower_red = np.array([0, 120, 70])
-    upper_red = np.array([10, 255, 255])
-    mask = cv2.inRange(hsv, lower_red, upper_red)
+    lower_red1 = np.array([0, 120, 70])
+    upper_red1 = np.array([10, 255, 255])
+    lower_red2 = np.array([170, 120, 70])
+    upper_red2 = np.array([180, 255, 255])
+
+    mask1 = cv2.inRange(hsv, lower_red1, upper_red1)
+    mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
+    mask = mask1 + mask2 # Combined Mask
 
     res = cv2.bitwise_and(background, background, mask=mask)
-    
     cv2.imshow("Optical Camo", res)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
